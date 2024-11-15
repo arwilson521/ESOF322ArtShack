@@ -1,0 +1,10 @@
+#AdminStory 1
+-the admin opens up the program and chooses the admin role
+-The admin approves a pending art piece
+-The admin closes the program
+#AdminStory 2
+
+-the admin opens up the program and chooses the admin role
+-The admin denies a pending art piece
+-The admin closes the program
+
