@@ -1,0 +1,17 @@
+#-Buyer Story 1
+-The Buyer opens up the main menu.
+-The buyer clicks the buyer role tab.
+-The buyer browses art and clicks on one they would like to buy
+-The buyer enters payment info
+-The art is unlisted and the art is bought
+# -Buyer Story 2
+-The buyer opens up the main menu,
+-The buyer clicks on  the buyer role tab.
+-The buyer browses art and clicks on an auction
+-The buyer bids and wins the auction
+-The art is delisted and the art is bought.
+# -Buyer story 3
+-The buyer opens up the main menu.
+-The buyer clicks on the buyer role tab.
+-The buyer browses art and decides to buy no art.
+-The buyer closes the program.
