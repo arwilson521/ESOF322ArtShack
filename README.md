@@ -3,9 +3,12 @@ Austin Wilson
 
 ESOF 322
 
-#How to use
+# How to use
+
 Download the program folder.
+
 run interface.py
+
 upload art into the art folder and run it through the seller tab.
 
 ## File descriptions
