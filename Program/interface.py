@@ -85,11 +85,96 @@ def seller(interface):
     sellerinterface()
 
 def sellerinterface():
+
+    
     sellerinterface = Tk()
     sellerinterface.geometry("750x750")
     sellerinterface.title("Seller")
     label = Label(sellerinterface, text="Seller Interface", font=("Arial", 16, "bold"))
     label.place(x=375, y=20)
+    #uploading interface
+    def uploadinterface():
+        sellerinterface.destroy()
+        uploadinterface=Tk()
+        uploadinterface.geometry("750x750")
+        uploadinterface.title("Upload art")
+
+
+        
+        filenamevar=StringVar()
+        pricevar=StringVar()
+        buytypevar=StringVar()
+        
+        
+        
+
+        
+        
+        
+        
+        label = Label(uploadinterface,text="Upload your art",font=("Arial",16,"bold"))
+        label.place(x=375,y=20)
+
+        #File name label and entry
+        filename=Label(uploadinterface,text="Filename",font=("Arial",16,"bold"))
+        filename.place(x=270,y=100)
+        nameentry=Entry(uploadinterface,textvariable=filenamevar)
+        nameentry.place(x=375,y=110)
+
+        #Price Label and entry
+        pricelabel=Label(uploadinterface,text="Price",font=("Arial",16,"bold"))
+        pricelabel.place(x=270,y=150)
+        priceentry=Entry(uploadinterface,textvariable=pricevar)
+        priceentry.place(x=375,y=160)
+
+        #type of entry
+        buytype=Label(uploadinterface,text="BIN or Auction",font=("Arial",16,"bold"))
+        buytype.place(x=200,y=200)
+        buyentry=Entry(uploadinterface,textvariable=buytypevar)
+        buyentry.place(x=375,y=210)
+
+
+        #Submittal
+        def submitfunc():
+                   
+            if(buytypevar.get()=="BIN" or buytypevar.get()=="Auction"):
+                
+                con=sqlite3.connect("ArtShack.db")
+                cur=con.cursor()
+                filename=filenamevar.get()
+                price=pricevar.get()
+                buytype=buytypevar.get()
+                cur.execute("INSERT INTO art VALUES (?,?,?,?)",(0,filename,price,buytype))
+        
+                con.commit()            
+                con.close()
+            
+            #Debug printing
+            print("Uploading the following")
+            print("Filename:", filenamevar.get())
+            print("Price:", pricevar.get())
+            print("Buy Type:", buytypevar.get())
+
+
+            
+        submit=Button(uploadinterface,text="Submit",command=submitfunc)
+        submit.place(x=375,y=300)
+        print(filenamevar.get(),pricevar.get(),buytypevar.get())
+
+
+        #main menu button
+        mainbutton=Button(uploadinterface,text="Main Menu",command=lambda:mainmenu(uploadinterface))
+        mainbutton.place(x=0,y=0)
+        uploadinterface.mainloop()
+
+    #promote art
+    
+
+    #upload art
+    uploadbutton=Button(sellerinterface, text="Upload art", command=lambda: uploadinterface())
+    uploadbutton.place(x=375,y=50)
+    
+    
     
     # Main menu button
     mainbutton = Button(sellerinterface, text="Main Menu", command=lambda: mainmenu(sellerinterface))
