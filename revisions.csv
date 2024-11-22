@@ -4,3 +4,4 @@ Added Program,Program,Created the db schematic and the interface schematic, 11/1
 Updated interface.py,Program,Updated interface.py and added functionality to admin and browser to display art and approve or unapprove art,11/14/2024
 Created stores,userstories,created stories for each role,11/14/2024
 Updated program,Program,Added Seller upload functionality, 11/21/2024
+Updated Program,Program,Added Buying and bidding functionality,11/21/2024
