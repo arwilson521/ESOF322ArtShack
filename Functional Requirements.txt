@@ -1,0 +1,20 @@
+Functional Requirements:
+  Seller:
+    Sellers should be able to list art
+  Buyer:  
+    Buyers should be able to bid on art
+    Buyers should be able to buy now 
+  Browser Users:
+    User should be able to view the art
+  Superuser/Admin:
+    Admins should be able to approve or deny art
+
+Non-Functional Requirements:
+  price
+  Deadline - 0 Months
+  Hardware
+  Network
+  Software requirements
+  Legal reqs
+  Accessibility
+  Performance - Page load time (2 sec)
