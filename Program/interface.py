@@ -26,10 +26,20 @@ def mainmenuinterface():
 
     interface.mainloop()
 
+
+
+
+
+
+
 def buyer(interface):
     print("buyer clicked")
     interface.destroy()
     buyerinterface()
+
+
+
+
 
 def buyerinterface():
     buyerinterface=Tk()
@@ -41,8 +51,11 @@ def buyerinterface():
     buttonframe.place(x=0,y=0)
     mainbutton=Button(buttonframe,text="Main Menu",command=lambda:mainmenu(buyerinterface))
     mainbutton.pack()
+
+
+
+
     
-    # Purchase function (WIP)
 
     def buy(name):
         
@@ -74,8 +87,6 @@ def buyerinterface():
                 print("You won the auction!")
                 cur.execute("UPDATE art SET Approved=0 WHERE art=?", (name,))
                         
-
-        
     
         con.commit()
         con.close()
@@ -87,6 +98,8 @@ def buyerinterface():
     cur.execute("SELECT art, price, type FROM art WHERE approved=1")
     artdata = cur.fetchall()
 
+
+    
 
     '''
 This is just renamed/reused code from admindisplay_art. go check that for comments explaining it.
@@ -114,16 +127,26 @@ I only added comments for bits i changed like adding a buybutton.
             info_label.grid(row=index, column=2, padx=10, pady=10) 
     
 
+
+
+
+    
     buyerdisplay_art()
     # Commit and close connection
     con.commit()
     con.close()
     buyerinterface.mainloop()
 
+
+
+
 def seller(interface):
     print("seller clicked")
     interface.destroy()
     sellerinterface()
+
+
+
 
 def sellerinterface():
 
@@ -133,6 +156,9 @@ def sellerinterface():
     sellerinterface.title("Seller")
     label = Label(sellerinterface, text="Seller Interface", font=("Arial", 16, "bold"))
     label.place(x=375, y=20)
+
+
+    
     #uploading interface
     def uploadinterface():
         sellerinterface.destroy()
@@ -145,13 +171,6 @@ def sellerinterface():
         filenamevar=StringVar()
         pricevar=StringVar()
         buytypevar=StringVar()
-        
-        
-        
-
-        
-        
-        
         
         label = Label(uploadinterface,text="Upload your art",font=("Arial",16,"bold"))
         label.place(x=375,y=20)
@@ -175,7 +194,11 @@ def sellerinterface():
         buyentry.place(x=375,y=210)
 
 
+        
+
         #Submittal
+
+        
         def submitfunc():
                    
             if(buytypevar.get()=="BIN" or buytypevar.get()=="Auction"):
@@ -222,10 +245,16 @@ def sellerinterface():
     mainbutton.place(x=0, y=0)
     sellerinterface.mainloop()
 
+
+
+
 def admin(interface):
     print("admin clicked")
     interface.destroy()
     admininterface()
+
+
+
 
 def admininterface():
     admininterface = Tk()
@@ -242,6 +271,9 @@ def admininterface():
     mainbutton = Button(buttonframe, text="Main Menu", command=lambda: mainmenu(admininterface))
     mainbutton.pack()
 
+
+
+    
     def approveart(name):
         #print(name)
         con=sqlite3.connect("ArtShack.db")
@@ -260,6 +292,9 @@ def admininterface():
             
         con.commit()
         con.close()
+
+
+    
     def unapproveart(name):
         con=sqlite3.connect("ArtShack.db")
         cur=con.cursor()
@@ -323,10 +358,16 @@ def admininterface():
     con.close()
     admininterface.mainloop()
 
+
+
+
 def browser(interface):
     print("browser clicked")
     interface.destroy()
     browser_interface()  # Rename function to avoid conflict
+
+
+
 
 def browser_interface():
     browserinterface = Tk()  # Rename the Tk() instance
@@ -349,6 +390,8 @@ def browser_interface():
     cur.execute("SELECT art, price, type FROM art WHERE approved=1")
     artdata = cur.fetchall()
 
+
+    
     def display_art():
         # Create a frame for the images and info labels
         frame = Frame(browserinterface)
@@ -379,6 +422,9 @@ def browser_interface():
     con.close()
 
     browserinterface.mainloop()
+
+
+
 
 def mainmenu(interface):
     print("back to main menu")
