@@ -2,6 +2,7 @@ from tkinter import *
 import sqlite3
 from PIL import Image, ImageTk
 import os
+import random
 
 def mainmenuinterface():
     interface = Tk()  # Create interface
@@ -31,49 +32,89 @@ def buyer(interface):
     buyerinterface()
 
 def buyerinterface():
-    buyerinterface = Tk()
+    buyerinterface=Tk()
     buyerinterface.geometry("750x750")
     buyerinterface.title("Buyer")
-    label = Label(buyerinterface, text="Buyer Interface", font=("Arial", 16, "bold"))
-    label.place(x=375, y=20)
-    
-    # Main menu button
-    mainbutton = Button(buyerinterface, text="Main Menu", command=lambda: mainmenu(buyerinterface))
-    mainbutton.place(x=0, y=0)
+    label=Label(buyerinterface,text="Buyer Interface",font=("Arial",16,"bold"))
+    label.place(x=375,y=20)
+    buttonframe=Frame(buyerinterface)
+    buttonframe.place(x=0,y=0)
+    mainbutton=Button(buttonframe,text="Main Menu",command=lambda:mainmenu(buyerinterface))
+    mainbutton.pack()
     
     # Purchase function (WIP)
-    def purchaseart(artpiece):
-        print(artpiece)
+
+    def buy(name):
+        
+        con = sqlite3.connect("ArtShack.db")
+        cur = con.cursor()
+    
+        # Fetch the type of art (e.g., BIN or Auction) from the database
+        fullsql = "SELECT type FROM art WHERE art=?"
+        result = cur.execute(fullsql, (name,))
+        query = result.fetchall()[0][0]  # Get the type of the art
+        print(name, query)
+    
+        # Update the art to 'unapproved' (i.e., set Approved = 0)
+        if query == "BIN":
+            print("Bought!")
+            cur.execute("UPDATE art SET Approved=0 WHERE art=?", (name,))
+        else:
+            print("You bid $1!")
+            fullsql= "SELECT price FROM art WHERE art=?"
+            result=cur.execute(fullsql,(name,))
+            query=result.fetchall()[0][0]
+            print(name,query)
+            query=query+1
+            query=str(query)
+            fullsql="UPDATE art SET price="+query+" WHERE art=?"
+            cur.execute(fullsql,(name,))
+            ran=random.randint(0,10)
+            if ran==5:
+                print("You won the auction!")
+                cur.execute("UPDATE art SET Approved=0 WHERE art=?", (name,))
+                        
+
+        
+    
+        con.commit()
+        con.close()
+        buyerdisplay_art()
+        mainmenu(buyerinterface)    
+        
     con = sqlite3.connect("ArtShack.db")  # Ensure the database is in the 'Program' folder
     cur = con.cursor()
     cur.execute("SELECT art, price, type FROM art WHERE approved=1")
     artdata = cur.fetchall()
 
-    def display_art():
-        # Create a frame for the images and info labels
-        frame = Frame(buyerinterface)
-        frame.pack(pady=50)  # Add some space around the frame
+
+    '''
+This is just renamed/reused code from admindisplay_art. go check that for comments explaining it.
+I only added comments for bits i changed like adding a buybutton.
+    '''
+    def buyerdisplay_art():
+        frame=Frame(buyerinterface)
+        frame.pack(pady=50)
         art_directory=("art/")
-        for index, art in enumerate(artdata):
-            image_filename = art[0]  # Get the image file name stored in the database
-            image_path = os.path.join(art_directory, image_filename)  # Join the 'art' directory path with the image filename
-            image = Image.open(image_path)
-            image = image.resize((150, 150))  # Resize the image
-            photo = ImageTk.PhotoImage(image)
+        for index,art in enumerate(artdata):
+            #Buy/bid button
+            buybutton=Button(frame,text="Buy/Bid",command=lambda name=art[0]:buy(name))
+            buybutton.grid(row=index,column=0,padx=10,pady=10)
 
-            # Create a label for the image and display it in the first column
-            image_label = Label(frame, image=photo)
-            image_label.image = photo  # Keep reference to the image to avoid garbage collection
-            image_label.grid(row=index, column=0, padx=10, pady=10)  # Display image in first column
-
-            # Create a label for the art info (price and type) and display it in the second column
+            image_filename=art[0]
+            image_path=os.path.join(art_directory,image_filename)
+            image=Image.open(image_path)
+            image=image.resize((150,150))
+            photo=ImageTk.PhotoImage(image)
+            image_label=Label(frame,image=photo)
+            image_label.image=photo
+            image_label.grid(row=index,column=1,padx=10,pady=10)
             art_info = f"Price: ${art[1]}\nType: {art[2]}"
             info_label = Label(frame, text=art_info, font=("Arial", 12), justify=LEFT)
-            info_label.grid(row=index, column=1, padx=10, pady=10)  # Display text to the right of the image
+            info_label.grid(row=index, column=2, padx=10, pady=10) 
     
-    # Call the function to display the art
-    display_art()
 
+    buyerdisplay_art()
     # Commit and close connection
     con.commit()
     con.close()
@@ -168,7 +209,7 @@ def sellerinterface():
         uploadinterface.mainloop()
 
     #promote art
-    
+    #tbd, dont wanna do it though
 
     #upload art
     uploadbutton=Button(sellerinterface, text="Upload art", command=lambda: uploadinterface())
