@@ -3,25 +3,36 @@ Austin Wilson
 
 ESOF 322
 
+#How to use
+Download the program folder.
+run interface.py
+upload art into the art folder and run it through the seller tab.
+
 ## File descriptions
-### Main
-**Holds the main files**
+### Program
+**Holds the main files including art and the database**
+### Models
+**Holds the system models**
+
 ## Preface
-  ###  Version 0.0.1
+  ###  Version 0.0.2
+  Changelog:
+  Added everything.
   ### Introduction:
-  Welcome to version 0.0.1 of the Artshack system. This program is developed to ease the process between the artists selling art and the users buying art
+  Welcome to version 0.0.2 of the Artshack system. This program is developed to ease the process between the artists selling art and the users buying art
   ### Current Features:
   **SuperUser**
   Able to make changes to art listings. Admin only 
   **Artist**
-  can list art and pay to have art featured
+  can list art
   **Buyer**
   Can bid on art and purchase art
-  **Looker**
+  **Browser**
   Can look at art
   ### Future Features
+  Ability to feature art
   ### Limitations:
-  as this is the first version, there may be bugs or issues. stay up to date to avoid the bugs that are found.
+  Ugly interface
 ## Introduction
   This system is used to hold, store, and display art in a reasonable manner. it allows users to buy, sell, or look at art.
 ## Glossary
